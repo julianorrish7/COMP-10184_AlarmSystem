@@ -18,23 +18,10 @@
 int iAlarmState; 
 int buttonState;
 int oldButtonState;
+bool bPIR;
 
-// *************************************************************
-void setup() {
- // configure the USB serial monitor
- Serial.begin(115200);
- // configure the LED output
- pinMode(LED_BUILTIN, OUTPUT);
- // PIR sensor is an INPUT
- pinMode(PIN_PIR, INPUT);
- // Button is an INPUT
- pinMode(PIN_BUTTON, INPUT_PULLUP);
-}
-// *************************************************************
-void loop() {
-  bool bPIR;
-  buttonState = digitalRead(PIN_BUTTON);
 
+void checkAlarmState() {
   switch(iAlarmState) {
     case 0:
       // turn the LED off
@@ -91,3 +78,24 @@ void loop() {
       break;
   }
 }
+
+
+
+// *************************************************************
+void setup() {
+ // configure the USB serial monitor
+ Serial.begin(115200);
+ // configure the LED output
+ pinMode(LED_BUILTIN, OUTPUT);
+ // PIR sensor is an INPUT
+ pinMode(PIN_PIR, INPUT);
+ // Button is an INPUT
+ pinMode(PIN_BUTTON, INPUT_PULLUP);
+}
+// *************************************************************
+void loop() {
+  buttonState = digitalRead(PIN_BUTTON);
+
+  checkAlarmState();  
+}
+
